@@ -1,0 +1,8 @@
+install mappymatch package:
+	>pip install mappymatch
+
+install matchtomap package from local system:
+	>pip install F:\Projects\Trajectory\implement\matchtomap\matchtomap
+
+install matchtomap package from GitHub:
+	>pip install git+https://github.com/saasghari/matchtomap.git
