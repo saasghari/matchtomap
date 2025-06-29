@@ -1,24 +1,32 @@
 
 
 ##################################################### map matching process
-def LCSSMapMatching(data_file):
-    trace=LoadData(data_file)
+def LCSSMapMatching(trace_file):
+    trace=LoadData(trace_file)
     nx_map=LoadRN(trace)
     match_result=MapMatching(trace, nx_map)
     return match_result
+
 
 ##################################################### plot map matching result in dataframe
 def PlotResult(match_result):
     match_result.path_to_geodataframe().plot()  
 
 
+##################################################### save map matching result in a file
+def SaveResult(match_result, result_file):
+    # convert result to dataframe
+    pdf = match_result.matches_to_geodataframe()
+    pdf.to_csv(result_file)
+
+
 #####################################################  load data 
-def LoadData(data_file):
+def LoadData(trace_file):
     from mappymatch import package_root
     import pandas as pd
-    df = pd.read_csv(data_file)
+    df = pd.read_csv(trace_file)
     from mappymatch.constructs.trace import Trace
-    trace = Trace.from_csv(data_file, lat_column="latitude", lon_column="longitude", xy=True)
+    trace = Trace.from_csv(trace_file, lat_column="latitude", lon_column="longitude", xy=True)
     return trace
 
 
