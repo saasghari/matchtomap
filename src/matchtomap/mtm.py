@@ -1,7 +1,38 @@
+import os
+
+##################################################### map matching process for a dataset
+def LCSSMapMatching(src,des):
+
+    files=os.listdir(src)
+
+    # progress bar
+    cnt=0   # counter for progress bar
+    tn=len(files)  # total number for progress bar
+
+    for fname in files:
+        srcfn=src+"/"+fname
+        sp1=str(fname).split('.')
+        sp2=sp1[0].split('_')
+        desfn=des+"/RNT_"+sp2[1]+".csv"
+        
+        mr=LCSSMapMatcher(srcfn)
+        SaveResult(mr,desfn)
+
+        # progress bar
+        p=int(cnt*100/tn)
+        print("\r", end="")
+        print("progress...",end=" ")
+        print('\033[92m'+str(p)+"%"+'\033[0m', end="")
+        cnt=cnt+1
+    # progress bar
+    print("\r", end="")
+    print("progress...",end=" ")
+    print('\033[92m'+"100%"+'\033[0m', end="")
+    print('\033[93m'+"     completed"+'\033[0m')
 
 
-##################################################### map matching process
-def LCSSMapMatching(trace_file):
+##################################################### map matching process for one trajectory
+def LCSSMapMatcher(trace_file):
     trace=LoadData(trace_file)
     nx_map=LoadRN(trace)
     match_result=MapMatching(trace, nx_map)
