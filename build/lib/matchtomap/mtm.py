@@ -9,14 +9,18 @@ def LCSSMapMatching(src,des):
     cnt=0   # counter for progress bar
     tn=len(files)  # total number for progress bar
 
+    except_list=[]
     for fname in files:
         srcfn=src+"/"+fname
         sp1=str(fname).split('.')
         sp2=sp1[0].split('_')
         desfn=des+"/RNT_"+sp2[1]+".csv"
         
-        mr=LCSSMapMatcher(srcfn)
-        SaveResult(mr,desfn)
+        try:
+            mr=LCSSMapMatcher(srcfn)
+            SaveResult(mr,desfn)
+        except:
+            except_list.append(fname)
 
         # progress bar
         p=int(cnt*100/tn)
@@ -29,6 +33,9 @@ def LCSSMapMatching(src,des):
     print("progress...",end=" ")
     print('\033[92m'+"100%"+'\033[0m', end="")
     print('\033[93m'+"     completed"+'\033[0m')
+    print()
+    print()
+    print("Excepted Trajectories:", except_list)
 
 
 ##################################################### map matching process for one trajectory
@@ -47,7 +54,7 @@ def PlotResult(match_result):
 ##################################################### save map matching result in a file
 def SaveResult(match_result, result_file):
     # convert result to dataframe
-    pdf = match_result.matches_to_geodataframe()
+    pdf = match_result.path_to_geodataframe()
     pdf.to_csv(result_file)
 
 
