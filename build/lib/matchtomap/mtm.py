@@ -14,7 +14,7 @@ def LCSSMapMatching(src,des):
         srcfn=src+"/"+fname
         sp1=str(fname).split('.')
         sp2=sp1[0].split('_')
-        desfn=des+"/RNT_"+sp2[1]+".csv"
+        desfn=des+"/P_"+sp2[1]+".csv"
         
         try:
             mr=LCSSMapMatcher(srcfn)
